@@ -37,6 +37,11 @@ pipeline {
                 //archiveArtifacts artifacts: 'results/*.xml'
             }
         }
+        stage('mail') {
+            steps {
+                echo 'Enviando correo ...'
+            }
+        }
     }
     post {
         always {
