@@ -37,23 +37,8 @@ pipeline {
                 //archiveArtifacts artifacts: 'results/*.xml'
             }
         }
-        stage('mail') {
-            steps {
-                echo 'Enviando correo ...'
-                mail subject: "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} Status",
-                    body: "El trabajo ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ha terminado.",
-                    to: 'nata.pilco@gmail.com',
-                    from: 'jenkins@localhost.com'
-            }
-        }
     }
     post {
-        failure {
-            mail subject: "${env.JOB_NAME} - Build #${env.BUILD_NUMBER} FAILED",
-                body: "El trabajo ${env.JOB_NAME} - Build #${env.BUILD_NUMBER} ha fallado.",
-                to: 'nata.pilco@gmail.com',
-                from: 'jenkins@localhost.com'
-        }
         always {
             junit 'results/*_result.xml'
             cleanWs()
